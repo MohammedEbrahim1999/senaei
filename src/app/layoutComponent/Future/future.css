@@ -1,0 +1,12 @@
+@media(max-width: 960px) {
+    .custom-wrap-w{
+        flex-wrap: wrap !important;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .custom-w-style {
+        width: 100%;
+        margin-bottom: 15px !important;
+    }
+}

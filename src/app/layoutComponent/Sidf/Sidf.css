@@ -1,0 +1,10 @@
+@media(max-width: 960px) {
+    .custom-wrap {
+        flex-wrap: wrap !important;
+    }
+
+    .custom-w-style {
+        width: 50%;
+        margin-bottom: 15px !important;
+    }
+}

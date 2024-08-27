@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.footer{
+    background-color: #2A2138;
+}
+@media(max-width: 950px){
+    .footer{
+        height: 1000px !important;
+    }
+    .custom-wrap{
+        flex-wrap: wrap;
+    }
+}

@@ -1,0 +1,299 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import services from "../Components/Content/services.js";
+
+const Product = ({ params }: { params: { servicesId: string } }) => {
+  const [active, setActive] = useState("active");
+  const [view, setView] = useState("des-content block");
+  const toggleClass = (Category) => {
+    setActive(Category);
+  };
+  const toggleView = (Category) => {
+    setView(Category);
+  };
+
+
+  const product = services.find((item) => item.productId === params.servicesId);
+
+  if (!product) {
+    return <h1>Product not found</h1>;
+  }
+
+  const [randomItems, setRandomItems] = useState([]);
+
+  useEffect(() => {
+    // Function to shuffle the array
+    const shuffleArray = (services) => {
+      for (let i = services.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [services[i], services[j]] = [services[j], services[i]];
+      }
+      return services;
+    };
+
+    // Shuffle the array and take the first 3 items
+    const shuffledItems = shuffleArray([...services]).slice(0, 3);
+    setRandomItems(shuffledItems);
+  }, []); // Empty dependency array ensures this runs once on mount
+
+  // Map the random items to JSX elements
+  const randomElement = randomItems.map((item, index) => (
+    <div key={index} className="item-all col-lg-2 col-md-6 col-sm-12">
+      <a href={item.productLink}>
+        <img
+          src={item.productSrc}
+          alt={item.productTitle}
+          style={{ maxWidth: "100%" }}
+        />
+      </a>
+      <h6 style={{ marginTop: "20px" }}>{item.productTitle}</h6>
+      <p style={{ marginTop: "0px" }}>{item.ProductType}</p>
+      <p>{item.productPrice}</p>
+      <span>
+        <i className="fa-regular fa-star"></i>
+        <i className="fa-regular fa-star"></i>
+        <i className="fa-regular fa-star"></i>
+        <i className="fa-regular fa-star"></i>
+        <i className="fa-regular fa-star"></i>
+      </span>
+    </div>
+  ));
+
+  return (
+    <>
+      <div className="product-details">
+        <div className="container">
+          <div className="row">
+            <div className="img-left col-lg-6">
+              <img src={product.productSrc} alt={product.productTitle} />
+              <div className="magnifier"></div>
+            </div>
+            <div className="content-right cpl-lg-6">
+              <p className="p-one">
+                Home/{product.ProductType}/{product.productTitle}
+              </p>
+              <h2 className="h2-one">{product.ProductType}</h2>
+              <h1 className="h1-one">{product.productTitle}</h1>
+              <h3 className="h3-one">{product.productPrice} + Free Shipping</h3>
+              <p className="p-two">{product.productDes}</p>
+              <hr />
+              <div className="add">
+                <input type="number" name="" id="" value={0} />
+                <button>Add To Cart</button>
+              </div>
+              <hr />
+              <p className="p-three">SKU: N/A Categories: Accessories, Women</p>
+            </div>
+          </div>
+        </div>
+        <hr style={{ marginBottom: "0" }} />
+        <div className="row">
+          <div className="dat">
+            <div className="des">
+              <button
+                onClick={() => {
+                  setActive("active");
+                  toggleView("des-content block");
+                }}
+                className={active === "active" ? "active" : " "}
+              >
+                Description
+              </button>
+            </div>
+            <div className="info">
+              <button
+                onClick={() => {
+                  toggleClass("info");
+                  toggleView("info");
+                }}
+                className={active === "info" ? "active" : " "}
+              >
+                Additional Information
+              </button>
+            </div>
+            <div className="review">
+              <button
+                onClick={() => {
+                  toggleClass("rev");
+                  toggleView("rev");
+                }}
+                className={active === "rev" ? "active" : " "}
+              >
+                Reviews (0){" "}
+              </button>
+            </div>
+            <div
+              className={
+                view === "des-content block"
+                  ? "des-content block"
+                  : "des-content"
+              }
+            >
+              <h2> Product description </h2>
+              <p>
+                Since it’s creation lorem ipsum dolor sit amet, consectetur
+                adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </p>
+              <p className="dolor">
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident.{" "}
+              </p>
+              <div className="row">
+                <div
+                  className="col-lg-6"
+                  style={{ maxWidth: "100%", paddingRight: "0 !important" }}
+                >
+                  <img src="/imgs/brownShoes.jpg" alt="" />
+                </div>
+                <div className="col-lg-6">
+                  <img src="/imgs/brownShoes0.jpg" alt="" />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-6">
+                  <img src="/imgs/brownShoes1.jpg" alt="" className="custom" />
+                </div>
+                <div className="col-lg-6">
+                  <div className="browncontent">
+                    <h3> Ut enim ad minim </h3>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt.
+                    </p>
+                    <h3>Quis nostrud </h3>
+                    <p>Sed do eiusmod tempor incididunt ut labore.</p>
+                    <h3>Duis aute irure</h3>
+                    <p>
+                      Dolor sit amet, consectetur adipisicing elit, sed do
+                      eiusmod tempor incididunt ut labore.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-6 browncontent2">
+                  <h3>More about the product</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in.
+                  </p>
+                </div>
+                <div className="col-lg-6">
+                  <img src="/imgs/brownShoes2.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <div
+              className={view === "info" ? "info-content block" : "des-content"}
+            >
+              <h5 className="info-data">
+                {" "}
+                Color <span>{product.productColor}</span>
+              </h5>
+            </div>
+
+            <div
+              className={view === "rev" ? "rev-content block" : "rev-content"}
+            >
+              <div className="big">
+                <p> There are no reviews yet. </p>
+              </div>
+              <div className="box">
+                <h1> Be the first to review “Poster V1” </h1>
+                <p>
+                  Your email address will not be published. Required fields are
+                  marked *
+                </p>
+                <p className="rate">
+                  Your rating*
+                  <span className="icon-star-o"></span>
+                  <span className="icon-star-o"></span>
+                  <span className="icon-star-o"></span>
+                  <span className="icon-star-o"></span>
+                  <span className="icon-star-o"></span>
+                </p>
+                <form onSubmit={handleSubmit}>
+                  <div className="area">
+                    <label htmlFor="review">Your review * </label>
+                    <textarea
+                      id="review"
+                      name="Review PostCard V1 : "
+                      placeholder="Please Enter Your Review"
+                    />
+                    <ValidationError
+                      prefix="Message"
+                      field="message"
+                      errors={state.errors}
+                    />
+                  </div>
+                  <div className="username">
+                    <label htmlFor="username"> Name *</label>
+                    <input
+                      type="text"
+                      name="Name: "
+                      id="username"
+                      placeholder="Enter Your UserName"
+                    />
+                  </div>
+                  <div className="mail">
+                    <label htmlFor="email">Email Address *</label>
+                    <input
+                      id="email"
+                      type="email"
+                      name="E-Mail :"
+                      placeholder="Enter Your E-Mail"
+                    />
+                    <ValidationError
+                      prefix="Email"
+                      field="email"
+                      errors={state.errors}
+                    />
+                  </div>
+                  <div className="check">
+                    <input type="checkbox" name="Check" id="check" />
+                    <label htmlFor="check">
+                      Save my name, email, and website in this browser for the
+                      next time I comment.
+                    </label>
+                  </div>
+                  <button type="submit" disabled={state.submitting}>
+                    {state.submitting ? "Submiting....." : "Submit"}
+                  </button>
+                  {state.succeeded && (
+                    <p className="submit-message">
+                      {" "}
+                      <Lottie
+                        className="done-animation"
+                        loop={false}
+                        animationData={DoneAnimation}
+                      />{" "}
+                      Your Message Has Been Sent Successfully 👌.
+                    </p>
+                  )}
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="container">
+          <h1 className="rel"> Related Products</h1>
+          <div className="row">{randomElement}</div>
+        </div>
+      </div>
+      <Sale />
+    </>
+  );
+};
+
+export default Product;

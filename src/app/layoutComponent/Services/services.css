@@ -1,0 +1,20 @@
+@media(max-width: 640px){
+    .custom-grid-new{
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+}
+@media(max-width: 768px){
+    .custom-grid-new{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    .custom-flex-new{
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 25px;
+    }
+}
+@media(max-width: 1024px){
+    .custom-grid-new{
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
